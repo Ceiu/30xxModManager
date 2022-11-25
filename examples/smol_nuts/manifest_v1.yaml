@@ -1,0 +1,60 @@
+# An example 30XX mod
+
+# Everything before the triple-dash is ignored, but should still be well-formed. Lines starting with
+# an octothorpe (this thing: #) is a comment and will be ignored, even within the document. The YAML
+# format supports multiple documents, but the 30mm mod manager does not.
+---
+# The name of the mod. If omitted, the filename of the manifest sans file extension will be used.
+name: Smol Nuts
+
+# A version string for the mod; optional, but will make life easier for sorting purposes, probably.
+version: 0.0.1-1
+
+# A brief description of the mod and what it'll do.
+desc: Restores small nuts to their original size, but keeps the outlines and colours from the newer small nut
+  sprite; effectively, a combination of the two. Makes it a bit easier to tell them apart from large nuts.
+
+# The author of the mod, with an optional contact block (e-mail, twitter, whatever) following
+# ancient e-mail format. Not strictly necessary, but should probably be included.
+author: Cirom <cirom@probably_gmail.com>
+
+# A URL that would have more information about the author, the mod, or whatever. Optional.
+url: github.com/ceiu/30xxModManager/examples/smol_nuts
+
+# The collection of changes to apply. Remember to denote every entry at this level with a single
+# hyphen (this thing: -) to avoid defining properties on the "tasks" object.
+tasks:
+
+  # The name of the task; If omitted, a name will be generated using the index of the task
+  - name: replace pickups.png
+
+    # A brief description of the task; optional. Used for user-facing output on both CLI and GUI
+    # tooling
+    desc: replaces the pickups.png with the modified one with small nuts
+
+    # A list of tags for this task, used to selectively apply changes; optional.
+    tags:
+      - pickups
+      - nuts
+
+    # The type of task, indicating the type of change to perform. This field is required and must
+    # be set to a valid type, so the mod manager knows what handler to use for performing the task's
+    # operation.
+    #
+    # The "file" task represents replacing an entire file. The source file will replace the target
+    # file in its entirety, overwriting any other changes that may have been made by other mods,
+    # even if applied by the mod manager earlier in the same invocation.
+    type: file
+
+    # The source file containing the desired changes (or "mod"). The path must be specified relative
+    # to this manifest file.
+    source: resources\pickups.png
+
+    # The target file within the 30XX install to replace. The path must be specified relative to the
+    # root of the 30XX install.
+    target: data\SpriteExports\obj\pickups.png
+
+    # Whether or not the target file is required. In general this should be true (and defaults to
+    # true if not specified), as the mod will be changing an existing file far more often than
+    # adding net-new files.
+    require_target: true

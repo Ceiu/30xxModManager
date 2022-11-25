@@ -1,0 +1,76 @@
+# An example 30XX mod
+
+# Everything before the triple-dash is ignored, but should still be well-formed. Lines starting with
+# an octothorpe (this thing: #) is a comment and will be ignored, even within the document. The YAML
+# format supports multiple documents, but the 30mm mod manager does not.
+---
+# The name of the mod. If omitted, the filename of the manifest sans file extension will be used.
+name: My Example Mod
+
+# A version string for the mod; optional, but will make life easier for sorting purposes, probably.
+version: 1.2.3-1
+
+# A brief description of the mod and what it'll do.
+desc: An example mod that demonstrates how to write a mod manifest
+
+# The author of the mod, with an optional contact block (e-mail, twitter, whatever) following
+# ancient e-mail format. Not strictly necessary, but should probably be included.
+author: Ceiu <ceiu@email.com>
+
+# A URL that would have more information about the author, the mod, or whatever. Optional.
+url: github.com/ceiu/30mm/examples/simple
+
+# The collection of changes to apply. Remember to denote every entry at this level with a single
+# hyphen (this thing: -) to avoid defining properties on the "tasks" object.
+tasks:
+
+  # The name of the task; If omitted, a name will be generated using the index of the task
+  - name: fancy ace muffler
+
+    # A brief description of the task; optional. Used for user-facing output on both CLI and GUI
+    # tooling
+    desc: gives ace a muffler
+
+    # A list of tags for this task, used to selectively apply changes; optional.
+    tags:
+      - ace
+      - muffler
+
+    # The type of task, indicating the type of change to perform. This field is required and must
+    # be set to a valid type, so the mod manager knows what handler to use for performing the task's
+    # operation.
+    #
+    # The "file" task represents replacing an entire file. The source file will replace the target
+    # file in its entirety, overwriting any other changes that may have been made by other mods,
+    # even if applied by the mod manager earlier in the same invocation.
+    type: file
+
+    # The source file containing the desired changes (or "mod"). The path must be specified relative
+    # to this manifest file
+    source: /path/to/ace_muffler.png
+
+    # The target file within the 30XX install to replace. The path must be specified relative to the
+    # root of the 30XX install
+    target: /path/to/ace_sprites.png
+
+  # The name of the next task; note the leading hyphen, denoting the start of a new task.
+  - name: fancy hat
+
+    desc: Gives Ace a fancy hat!
+
+    tags:
+      - ace
+      - fancy
+      - hat
+
+    # The type of change
+    # The "sprite" task type represents changing a single sprite within a sprite sheet.
+    type: sprite
+
+    # The source file containing the desired sprite. This file will be used as the entire sprite
+    # and the dimensions of the file will be used as the new dimensions of the sprite in the sheet.
+    source: /path/to/ace_hat.png
+
+    sprite_sheet: /path/to/sprite_sheet.png
+    sprite_map: /path/to/sprite_map.xml
+    sprite: sprite_name
